@@ -4,9 +4,10 @@ import { useRef } from 'react';
 import images from '../constants/images';
 import { useSpring, animated } from '@react-spring/web'
 import { useState } from 'react';
+import DiffusionBar from '../diffusionBar';
 
 function Detector() {
-    
+
     const slideIn = useSpring({
         config: {
             tension: 170,
@@ -47,6 +48,15 @@ function Detector() {
         }
     };
 
+    const diffusionResults = [
+      { model: "DALL-E", diffusionPercentage: 93 },
+      { model: "Midjourney", diffusionPercentage: 17 },
+      { model: "Stable Diffusion", diffusionPercentage: 0 },
+      { model: "FLUX", diffusionPercentage: 0 },
+    ];
+  
+    
+  
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [UID, setUID] = useState('109301930');
@@ -279,9 +289,19 @@ function Detector() {
                             100%
                             </div>
                         </>
+                        
                         )}
                     </div>
+{/* 
+                    <p className="text-lg font-bold text-black">
+                            The image is: <span className="text-green-100">Not likely to be AI-generated</span>
+                            </p>
 
+                            <div className="flex items-center justify-center w-16 h-16 bg-green-100 text-white font-bold text-lg rounded-[1.5rem]">
+                            1%
+                            </div>
+                             */}
+                             
                 </animated.div>
 
                 <animated.div
@@ -300,59 +320,116 @@ function Detector() {
                     </div>
 
                     <div className="h-full relative flex flex-col items-center justify-center w-full bg-blue-300 px-6 py-4 rounded-b-xl shadow-inner">
+                    
                     {loading ? (
                       <div className="w-10 h-10 border-4 border-gray-300 border-t-purple rounded-full animate-spin"></div>
                     ) : (
+                      
                       <div className="flex flex-col space-y-6 w-full max-w-md">
+
+                        {diffusionResults.map((result, index) => (
+                                        <DiffusionBar
+                                          key={index}
+                                          modelName={result.model}
+                                          diffusionPercentage={result.diffusionPercentage}
+                                        />
+                                      ))}
+
+{/* 
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-xl font-semibold">DALL-E</span>
-                          <div className="w-3/4 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div
-                              className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500"
-                              style={{ width: '45%' }}
-                            ></div>
+                          <span className="text-xl font-semibold w-2/5 overflow-hidden">DALL-E</span>
+                          <div className="flex items-center w-3/4">
+                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 relative">
+                              <div
+                                className="h-2.5 rounded-full"
+                                style={{
+                                  width: '45%',
+                                  background: 'linear-gradient(to left, red, green)',
+                                }}
+                              ></div>
+                            </div>
+                            <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                              45%
+                            </span>
+                          </div>
+                        </div>
+                        
+
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xl font-semibold w-2/5 overflow-hidden">Midjourney</span>
+                          <div className="flex items-center w-3/4">
+                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 relative">
+                              <div
+                                className="h-2.5 rounded-full"
+                                style={{
+                                  width: '45%',
+                                  background: 'linear-gradient(to left, red, green)',
+                                }}
+                              ></div>
+                            </div>
+                            <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                              45%
+                            </span>
+                          </div>
+                        </div>
+
+
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xl font-semibold w-2/5 overflow-hidden">Stable Diffusion</span>
+                          <div className="flex items-center w-3/4">
+                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 relative">
+                              <div
+                                className="h-2.5 rounded-full"
+                                style={{
+                                  width: '45%',
+                                  background: 'linear-gradient(to left, red, green)',
+                                }}
+                              ></div>
+                            </div>
+                            <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                              45%
+                            </span>
+                          </div>
+                        </div>
+
+
+
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xl font-semibold w-2/5 overflow-hidden">FLUX</span>
+                          <div className="flex items-center w-3/4">
+                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 relative">
+                              <div
+                                className="h-2.5 rounded-full"
+                                style={{
+                                  width: '45%',
+                                  background: 'linear-gradient(to left, red, green)',
+                                }}
+                              ></div>
+                            </div>
+                            <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                              45%
+                            </span>
                           </div>
                         </div>
 
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-xl font-semibold">Midjourney</span>
-                          <div className="w-3/4 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div
-                              className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500"
-                              style={{ width: '45%' }}
-                            ></div>
+                          <span className="text-xl font-semibold w-2/5 overflow-hidden">DALL-E</span>
+                          <div className="flex items-center w-3/4">
+                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 relative">
+                              <div
+                                className="h-2.5 rounded-full"
+                                style={{
+                                  width: '45%',
+                                  background: 'linear-gradient(to left, red, green)',
+                                }}
+                              ></div>
+                            </div>
+                            <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                              45%
+                            </span>
                           </div>
-                        </div>
+                        </div> */}
 
-                        <div className="flex items-center justify-between w-full">
-                          <span className="text-xl font-semibold">Stable Diffusion</span>
-                          <div className="w-3/4 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div
-                              className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500"
-                              style={{ width: '45%' }}
-                            ></div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center justify-between w-full">
-                          <span className="text-xl font-semibold">FLUX</span>
-                          <div className="w-3/4 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div
-                              className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500"
-                              style={{ width: '45%' }}
-                            ></div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center justify-between w-full">
-                          <span className="text-xl font-semibold">CycleGAN</span>
-                          <div className="w-3/4 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div
-                              className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500"
-                              style={{ width: '45%' }}
-                            ></div>
-                          </div>
-                        </div>
                       </div>
                     )}
                   </div>

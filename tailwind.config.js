@@ -29,6 +29,7 @@ export default {
         },
         green: {
           DEFAULT: '#C9E9D2',
+          100: '#2F822F',
         },
         purple: {
           DEFAULT: '#7E75D1',
@@ -45,7 +46,9 @@ export default {
           },
         },
       },
+      
     },
   },
+  
   plugins: [],
 }
